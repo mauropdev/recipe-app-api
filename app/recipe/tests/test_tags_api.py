@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.test import TestCase
 
 from rest_framework import status
-from rest_framework import APIClient
+from rest_framework.test import APIClient
 
 from core.models import Tag
 
@@ -23,7 +23,7 @@ class PublicTagsApiTests(TestCase):
         """Test that login is required for retrieving tags"""
         res = self.client.get(TAGS_URLS)
 
-        self.assertEqual(res.status_code, status.HTTP_401_UNATHORIZED)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
 class PrivateTagApiTests(TestCase):
@@ -62,4 +62,4 @@ class PrivateTagApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 1)
-        self.assertEqual(res.data[0]['name'], tag.name|)
+        self.assertEqual(res.data[0]['name'], tag.name)
