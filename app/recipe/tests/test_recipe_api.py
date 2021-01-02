@@ -13,17 +13,20 @@ from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 RECIPES_URL = reverse('recipe:recipe-list')
 
 
-def detail_url():
+def detail_url(recipe_id):
     """Return recipe detail URL"""
     return reverse('recipe:recipe-detail', args=[recipe_id])
+
 
 def sample_tag(user, name='Main course'):
     """Create and return a sample tag"""
     return Tag.objects.create(user=user, name=name)
 
+
 def sample_ingredient(user, name='Cinnamon'):
     """Create and return a sample ingredient"""
     return Ingredient.objects.create(user=user, name=name)
+
 
 def sample_recipe(user, **params):
     """Create and return a sample recipe"""
@@ -99,7 +102,7 @@ class PrivateRecipeApiTests(TestCase):
         recipe.ingredients.add(sample_ingredient(user=self.user))
 
         url = detail_url(recipe.id)
-        res =self.client.get(url)
+        res = self.client.get(url)
 
         serializer = RecipeDetailSerializer(recipe)
 
