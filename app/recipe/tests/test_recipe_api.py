@@ -20,14 +20,14 @@ def sample_recipe(user, **params):
         'time_minutes': 10,
         'price': 5.00
     }
-    defautls.update(params)
+    defaults.update(params)
 
     return Recipe.objects.create(user=user, **defaults)
 
 
 class PublicRecipeApiTests(TestCase):
     """Test unauthenticated recipe API access"""
-    
+
     def setUp(self):
         self.client = APIClient()
 
@@ -72,7 +72,7 @@ class PrivateRecipeApiTests(TestCase):
         sample_recipe(user=self.user)
 
         res = self.client.get(RECIPES_URL)
-        
+
         recipes = Recipe.objects.filter(user=self.user)
         serializer = RecipeSerializer(recipes, many=True)
 
