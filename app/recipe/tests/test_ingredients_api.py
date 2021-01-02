@@ -44,8 +44,8 @@ class PrivateIngredientsApiTests(TestCase):
 
         res = self.client.get(INGREDIENTS_URL)
 
-        Ingredients = Ingredient.objects.all().order_by('-name')
-        serializer = IngredientSerializer(Ingredients, many=True)
+        ingredients = Ingredient.objects.all().order_by('-name')
+        serializer = IngredientSerializer(ingredients, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
